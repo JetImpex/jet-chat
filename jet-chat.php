@@ -119,8 +119,7 @@ if ( ! class_exists( 'Jet_Chat' ) ) {
 			add_action( 'wapu-core/settings-page/save', array( $this, 'reset_cache' ), 10, 2 );
 			add_action( 'wp_footer', array( $this, 'print_chat_template' ), -1 );
 
-			add_action( 'wp_ajax_jet_chat_get_url', array( $this, 'get_chat_url' ) );
-			add_action( 'wp_ajax_nopriv_jet_chat_get_url', array( $this, 'get_chat_url' ) );
+			$this->chat_redirect();
 		}
 
 		/**
@@ -128,7 +127,11 @@ if ( ! class_exists( 'Jet_Chat' ) ) {
 		 *
 		 * @return [type] [description]
 		 */
-		public function get_chat_url() {
+		public function chat_redirect() {
+
+			if ( ! isset( $_GET['action'] ) || 'start-chat' !== $_GET['action'] ) {
+				return;
+			}
 
 			$params   = array();
 			$settings = get_option( 'wapu_core', array() );
@@ -146,9 +149,8 @@ if ( ! class_exists( 'Jet_Chat' ) ) {
 
 			$params['key'] = md5( implode( '', $params ) . $secret );
 
-			wp_send_json_success( array(
-				'url' => add_query_arg( urlencode_deep( $params ), $url ),
-			) );
+			wp_redirect( add_query_arg( urlencode_deep( $params ), $url ) );
+			die();
 		}
 
 		/**
@@ -423,7 +425,7 @@ if ( ! class_exists( 'Jet_Chat' ) ) {
 			);
 
 			wp_localize_script( 'jet-chat', 'jetChatSettings', array(
-				'ajaxurl' => esc_url( admin_url( 'admin-ajax.php' ) ),
+				'chaturl' => esc_url( home_url( '/' ) ),
 			) );
 		}
 
