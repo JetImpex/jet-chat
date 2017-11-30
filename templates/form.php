@@ -16,9 +16,11 @@
 			</div>
 			<div class="jet-chat__form-row">
 				<input type="text" class="jet-chat__form-field" name="uname" placeholder="Name">
+				<div class="jet-chat__form-error"></div>
 			</div>
 			<div class="jet-chat__form-row">
 				<input type="email" class="jet-chat__form-field" name="umail" placeholder="Email Address">
+				<div class="jet-chat__form-error"></div>
 			</div>
 			<button class="jet-chat__form-submit">Start Chat</button>
 		</div>

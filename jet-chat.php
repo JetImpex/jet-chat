@@ -425,7 +425,12 @@ if ( ! class_exists( 'Jet_Chat' ) ) {
 			);
 
 			wp_localize_script( 'jet-chat', 'jetChatSettings', array(
-				'chaturl' => esc_url( home_url( '/' ) ),
+				'chaturl'  => esc_url( home_url( '/' ) ),
+				'errMsg'   => array(
+					'emptyName'   => esc_html__( 'Please enter your name', 'jet-chat' ),
+					'emptyMail'   => esc_html__( 'Please enter your e-mail', 'jet-chat' ),
+					'invalidMail' => esc_html__( 'Please enter valid e-mail', 'jet-chat' ),
+				),
 			) );
 		}
 

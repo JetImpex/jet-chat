@@ -37,16 +37,18 @@
 
 			if ( ! name ) {
 				isValid = false;
-				$name.addClass( 'jet-chat-error' );
+				console.log( settings.errMsg.emptyName );
+				$name.addClass( 'jet-chat-error' ).next( '.jet-chat__form-error' ).html( settings.errMsg.emptyName );
 			}
 
 			if ( ! mail ) {
 				isValid = false;
-				$mail.addClass( 'jet-chat-error' );
+				$mail.addClass( 'jet-chat-error' ).next( '.jet-chat__form-error' ).html( settings.errMsg.emptyMail );
 			}
 
 			if ( ! $mail[0].validity.valid ) {
-				$mail.addClass( 'jet-chat-error' );
+				isValid = false;
+				$mail.addClass( 'jet-chat-error' ).next( '.jet-chat__form-error' ).html( settings.errMsg.invalidMail );
 			}
 
 			if ( ! isValid ) {
@@ -59,7 +61,7 @@
 				mail: mail
 			};
 
-			window.open( settings.chaturl + '?' + $.param( data ), '_blank', 'height=700,width=800' );
+			window.open( settings.chaturl + '?' + $.param( data ), '_blank', 'height=800,width=820' );
 
 		},
 
@@ -110,7 +112,7 @@
 		},
 
 		clearErrors: function() {
-			$( this ).removeClass( 'jet-chat-error' );
+			$( this ).removeClass( 'jet-chat-error' ).next( '.jet-chat__form-error' ).html( '' );
 		}
 
 	};
